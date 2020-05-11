@@ -39,6 +39,9 @@ def split(path,size):
     file_name_no_ext = file_name \
         if not file_name.find('.') else reduce(lambda x,y: x + y,file_name.split('.')[0:-1])
 
+    directory = os.path.join(directory,"SPLITS")
+    os.mkdir(directory)
+
     split0 = os.path.join(directory,file_name_no_ext + ".SPLIT_0")
     writeHeader(split0,file_name,splits)
 
@@ -75,7 +78,7 @@ def recreate(path):
     return True
     
 
-if len(sys.argv) < 2 and (sys.argv[1] not in ["SPLIT","RECREATE"]):
+if len(sys.argv) < 2 or (sys.argv[1] not in ["SPLIT","RECREATE"]):
     print("Usage:\n\
         To split file     : $ python split_file.py SPLIT PATH_TO_FILE_TO_SPLIT SPLIT_SIZE(MB)\n\
         To recreate file  : $ python split_file.py RECREATE PATH_TO_FIRST_SPLIT ")
